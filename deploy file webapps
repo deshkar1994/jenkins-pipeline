@@ -1,0 +1,28 @@
+pipeline {
+    
+    agent {
+        
+        label "qa"
+        
+    }
+    
+    stages {
+        
+        stage ("deploy") {
+        
+        steps {
+            
+            sshagent(['	i-0dc799c4c1a583631']) {
+                
+            sh 'ssh -o StrictHostKeyChecking=no -l ec2-user@172.31.35.29'
+            
+            sh 'scp /home/ec2-user/mnt/projects/game-of-life/gameoflife-web/target/gameoflife.war ec2-user@172.31.38.92:/home/ec2-user/mnt/web-server/apache-tomcat-9.0.71/webapps'
+        }
+        
+    }
+    
+    }
+    
+}
+
+}
